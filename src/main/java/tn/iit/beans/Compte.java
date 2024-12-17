@@ -41,5 +41,28 @@ public class Compte implements Serializable  {
 		this.nomClient = nomClient;
 		this.solde = solde;
 	}
-	
+
+	public Integer getRib() {
+		return rib;
+	}
+
+	public String getNomClient() {
+		return nomClient;
+	}
+
+	public float getSolde() {
+		return solde;
+	}
+
+	public void setRib(Integer rib) {
+		this.rib = rib;
+	}
+
+	public void setNomClient(String nomClient) {
+		this.nomClient = nomClient;
+	}
+
+	public void setSolde(float solde) {
+		this.solde = solde;
+	}
 }
