@@ -16,6 +16,8 @@ public class User {
 
     private String username;
     private String password;
+    private String token;
+
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Collection<String> roles;
@@ -26,4 +28,11 @@ public class User {
         this.roles = roles;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }
