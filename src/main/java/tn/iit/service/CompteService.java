@@ -1,35 +1,43 @@
 package tn.iit.service;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.stereotype.Service;
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import tn.iit.beans.Compte;
-import tn.iit.exception.CompteNotFoundException;
 import tn.iit.repository.CompteRepository;
 
-@RequiredArgsConstructor
+import java.util.List;
+
 @Service
 public class CompteService {
+
 	private final CompteRepository compteRepository;
-	public Compte saveOrUpdate(Compte compte) {
-		return compteRepository.save(compte);
+
+	public CompteService(CompteRepository compteRepository) {
+		this.compteRepository = compteRepository;
+
 	}
+
+	public List<Compte> findByClientId(Long clientId) {
+		return compteRepository.findByClientId(clientId);
+	}
+
+
+
+
 
 	public List<Compte> findAll() {
 		return compteRepository.findAll();
 	}
-	public void deleteById(Integer rib) {
-		compteRepository.deleteById(rib);
-	}
-	public List<Compte> findAllByKey(String key) {
-		return compteRepository.findByNomClientContains(key);
-	}
-	public Compte findById(Integer rib) {
-		return compteRepository.findById(rib).orElseThrow(() -> new CompteNotFoundException("Compte with rib = " + rib + " is not found"));
 
+	public Compte saveOrUpdate(Compte compte) {
+		return compteRepository.save(compte);
 	}
 
+	public void deleteById(int id) {
+		compteRepository.deleteById(id);
+	}
+
+	public Compte findById(int id) {
+		return compteRepository.findById(id).orElse(null);
+	}
 }

@@ -1,3 +1,4 @@
+
 package tn.iit.repository;
 
 import java.util.List;
@@ -8,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import tn.iit.beans.Compte;
 
 @Repository
-public interface CompteRepository extends JpaRepository<Compte, Integer>{
-	List<Compte> findByNomClientContains(String key);
+public interface CompteRepository extends JpaRepository<Compte, Integer> {
+
+	List<Compte> findByClientId(Long clientId);
+
 }

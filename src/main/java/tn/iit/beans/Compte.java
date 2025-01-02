@@ -4,9 +4,12 @@ import java.io.Serializable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -15,54 +18,41 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Getter
 @Setter
-@NoArgsConstructor // obligatoire selon JPA
-@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString
-@Entity 
+@Entity
 @Table(name = "t_compte")
-public class Compte implements Serializable  {
+public class Compte implements Serializable {
 	private static final long serialVersionUID = 1L;
-	@Id // rib --> PK
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // auto-increment
-	@Include // equals et hashCode générés à base du RIB
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Include
 	private Integer rib;
-	@Column(name = "client")
-	private String nomClient;
+
 	private float solde;
-	public Compte(String nomClient, float solde) {
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_client")
+	private Client client;
+
+	public Compte(Integer rib, float solde, Client client) {
 		super();
-		this.nomClient = nomClient;
 		this.solde = solde;
+		this.client = client;
 	}
 
+	// Getters and Setters
 	public Integer getRib() {
 		return rib;
 	}
 
-	public String getNomClient() {
-		return nomClient;
-	}
-
-	public float getSolde() {
-		return solde;
-	}
-
 	public void setRib(Integer rib) {
 		this.rib = rib;
-	}
-
-	public void setNomClient(String nomClient) {
-		this.nomClient = nomClient;
-	}
-
-	public void setSolde(float solde) {
-		this.solde = solde;
 	}
 }
