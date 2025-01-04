@@ -33,8 +33,8 @@ public class CompteService {
 		return compteRepository.save(compte);
 	}
 
-	public void deleteById(int id) {
-		compteRepository.deleteById(id);
+	public void deleteByRib(Integer rib) {
+		compteRepository.deleteById(rib);
 	}
 
 	public Compte findById(int id) {

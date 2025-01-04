@@ -19,18 +19,18 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Use BCrypt for password encoding
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
             .authorizeHttpRequests()
-                .requestMatchers("/api/login", "/api/register").permitAll() // Allow login and registration without authentication
-                .anyRequest().authenticated() // Require authentication for all other requests
+                .requestMatchers("/api/login", "/api/register","/api/comptes/**","/api/clients/**").permitAll()
+                .anyRequest().authenticated()
             .and()
-            .sessionManagement().disable() // Ensure stateless sessions
-            .httpBasic().disable(); // Disable basic authentication (if not needed)
+            .sessionManagement().disable()
+            .httpBasic().disable();
 
         return http.build();
     }

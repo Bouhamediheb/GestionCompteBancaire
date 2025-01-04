@@ -4,9 +4,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
 import tn.iit.beans.Client;
-import tn.iit.beans.Compte; // Assuming you have a Compte class
+import tn.iit.beans.Compte;
 import tn.iit.service.ClientService;
-import tn.iit.service.CompteService; // Assuming you have a CompteService
+import tn.iit.service.CompteService;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class ClientController {
     @PostMapping("/save")
     public ResponseEntity<Client> createClient(@RequestBody Client client) {
         Client savedClient = clientService.saveOrUpdate(client);
-        return ResponseEntity.ok(savedClient); // You can adjust the URI here if needed
+        return ResponseEntity.ok(savedClient);
     }
 
     @PutMapping("/{id}")
@@ -67,5 +67,11 @@ public class ClientController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         clientService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Client>> searchClients(@RequestParam("name") String name) {
+        List<Client> clients = clientService.searchByName(name);
+        return ResponseEntity.ok(clients);
     }
 }

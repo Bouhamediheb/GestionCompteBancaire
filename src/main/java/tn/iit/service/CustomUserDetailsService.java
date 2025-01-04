@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new User(
                 user.getUsername(),
                 user.getPassword(),
-                new ArrayList<>() // Empty authorities as roles are not being used
+                new ArrayList<>()
         );
     }
 }

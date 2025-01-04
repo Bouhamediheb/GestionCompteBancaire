@@ -30,7 +30,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
-            // Authenticate user credentials
             Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                     loginRequest.getUsername(),
@@ -38,19 +37,15 @@ public class AuthController {
                 )
             );
 
-            // Generate JWT token
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String token = jwtService.generateToken(userDetails);
 
-            // Save the token to the database
             tn.iit.beans.User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
             user.setToken(token);
             userRepository.save(user);
 
-            // Respond with the token
             return ResponseEntity.ok(new LoginResponse("Login successful", token));
         } catch (AuthenticationException ex) {
-            // Return unauthorized response
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                 .body(new LoginResponse("Invalid username or password", null));
         }

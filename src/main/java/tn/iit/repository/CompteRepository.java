@@ -13,4 +13,5 @@ public interface CompteRepository extends JpaRepository<Compte, Integer> {
 
 	List<Compte> findByClientId(Long clientId);
 
+
 }

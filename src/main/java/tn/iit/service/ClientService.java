@@ -31,4 +31,8 @@ public class ClientService {
     public void deleteById(Long id) {  // Change Integer to Long
         clientRepository.deleteById(id);
     }
+
+    public List<Client> searchByName(String name) {
+        return clientRepository.findByNomContainingIgnoreCase(name);
+    }
 }

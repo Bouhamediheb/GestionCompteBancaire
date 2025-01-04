@@ -1,15 +1,13 @@
 package tn.iit.controller;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import tn.iit.beans.Client;
 import tn.iit.beans.Compte;
 import tn.iit.service.CompteService;
 
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:5173")  // Allow Vue.js frontend to access
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/comptes")
 public class CompteController {
@@ -24,7 +22,6 @@ public class CompteController {
 	public ResponseEntity<List<Compte>> findAll() {
 		List<Compte> comptes = compteService.findAll();
 		if (comptes == null || comptes.isEmpty()) {
-			// Log for debugging
 			System.out.println("No comptes found");
 		}
 		return ResponseEntity.ok(comptes);
@@ -38,7 +35,7 @@ public class CompteController {
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable int id) {
-		compteService.deleteById(id);
+		compteService.deleteByRib(id);
 		return ResponseEntity.noContent().build();
 	}
 
@@ -57,10 +54,16 @@ public class CompteController {
             return ResponseEntity.notFound().build();
         }
 
-        existingCompte.setRib(compte.getRib());  // Ensure the ID remains the same
+        existingCompte.setRib(compte.getRib());
         existingCompte.setSolde(compte.getSolde());
         Compte updatedCompte = compteService.saveOrUpdate(compte);
 
         return ResponseEntity.ok(updatedCompte);
     }
+
+	@ResponseBody
+	@PostMapping("/delete-ajax")
+	public void deleteAjax(@RequestParam Integer rib) {
+		compteService.deleteByRib(rib);
+	}
 }
