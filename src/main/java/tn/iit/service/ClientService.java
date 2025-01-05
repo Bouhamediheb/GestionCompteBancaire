@@ -11,18 +11,17 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class ClientService {
+
     private final ClientRepository clientRepository;
 
     public List<Client> findAll() {
         return clientRepository.findAll();
     }
 
-    public Client findById(Long id) {  // Change Integer to Long
+    public Client findById(Long id) {
         Optional<Client> client = clientRepository.findById(id);
         return client.orElse(null);
     }
-
-
 
     public Client saveOrUpdate(Client client) {
         return clientRepository.save(client);

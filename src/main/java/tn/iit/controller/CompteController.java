@@ -54,7 +54,6 @@ public class CompteController {
             return ResponseEntity.notFound().build();
         }
 
-        existingCompte.setRib(compte.getRib());
         existingCompte.setSolde(compte.getSolde());
         Compte updatedCompte = compteService.saveOrUpdate(compte);
 

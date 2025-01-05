@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
+import tn.iit.beans.User;
 import tn.iit.dto.LoginRequest;
 import tn.iit.dto.LoginResponse;
 import tn.iit.repository.UserRepository;
@@ -40,7 +41,7 @@ public class AuthController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String token = jwtService.generateToken(userDetails);
 
-            tn.iit.beans.User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
+            User user = userRepository.findByUsername(userDetails.getUsername()).orElseThrow();
             user.setToken(token);
             userRepository.save(user);
 

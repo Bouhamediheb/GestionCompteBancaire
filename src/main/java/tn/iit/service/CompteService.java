@@ -1,29 +1,22 @@
 package tn.iit.service;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.iit.beans.Compte;
 import tn.iit.repository.CompteRepository;
 
 import java.util.List;
+@AllArgsConstructor
 
 @Service
 public class CompteService {
 
 	private final CompteRepository compteRepository;
 
-	public CompteService(CompteRepository compteRepository) {
-		this.compteRepository = compteRepository;
-
-	}
-
 	public List<Compte> findByClientId(Long clientId) {
 		return compteRepository.findByClientId(clientId);
 	}
-
-
-
-
 
 	public List<Compte> findAll() {
 		return compteRepository.findAll();

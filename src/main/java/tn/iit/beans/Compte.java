@@ -44,11 +44,4 @@ public class Compte implements Serializable {
 		this.client = client;
 	}
 
-	public Integer getRib() {
-		return rib;
-	}
-
-	public void setRib(Integer rib) {
-		this.rib = rib;
-	}
 }
